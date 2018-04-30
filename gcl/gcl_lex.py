@@ -136,7 +136,7 @@ a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v
 od
 '''
 
-data = "if 1 -> 3 fi"
+#data = "if 1 -> 3 fi"
 
 
 if __name__ == "__main__":
