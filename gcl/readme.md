@@ -9,6 +9,14 @@
 * expression은 실행 결과를 값으로 표시 가능한 식을 대상으로 함
 * statement는 guarded command의 기본 문법 단위
 
+## 실행 방법(Ubuntu 16.04)
+```
+sudo apt-get install python3-pip
+pip3 install ply
+python3 gcl_yacc.py
+
+```
+
 
 ## 문법 구조
 

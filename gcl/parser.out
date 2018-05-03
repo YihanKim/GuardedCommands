@@ -1,0 +1,709 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> SKIP
+Rule 2     statement -> ABORT
+Rule 3     statement -> variables ASSIGN expressions
+Rule 4     statement -> IF contents FI
+Rule 5     statement -> DO contents OD
+Rule 6     statement -> statements
+Rule 7     statements -> statement SEMICOLON statement
+Rule 8     content -> expression ARROW statement
+Rule 9     contents -> content
+Rule 10    contents -> content OR contents
+Rule 11    variables -> VARIABLE
+Rule 12    variables -> VARIABLE COMMA variables
+Rule 13    expressions -> expression
+Rule 14    expressions -> expression COMMA expressions
+Rule 15    expression -> expression PLUS expression
+Rule 16    expression -> expression MINUS expression
+Rule 17    expression -> expression TIMES expression
+Rule 18    expression -> expression DIVIDE expression
+Rule 19    expression -> NUMBER
+Rule 20    expression -> VARIABLE
+Rule 21    expression -> LPAREN expression RPAREN
+
+Terminals, with rules where they appear
+
+ABORT                : 2
+ARROW                : 8
+ASSIGN               : 3
+COMMA                : 12 14
+DIVIDE               : 18
+DO                   : 5
+FI                   : 4
+IF                   : 4
+LPAREN               : 21
+MINUS                : 16
+NUMBER               : 19
+OD                   : 5
+OR                   : 10
+PLUS                 : 15
+RPAREN               : 21
+SEMICOLON            : 7
+SKIP                 : 1
+TIMES                : 17
+VARIABLE             : 11 12 20
+error                : 
+
+Nonterminals, with rules where they appear
+
+content              : 9 10
+contents             : 4 5 10
+expression           : 8 13 14 15 15 16 16 17 17 18 18 21
+expressions          : 3 14
+statement            : 7 7 8 0
+statements           : 6
+variables            : 3 12
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . SKIP
+    (2) statement -> . ABORT
+    (3) statement -> . variables ASSIGN expressions
+    (4) statement -> . IF contents FI
+    (5) statement -> . DO contents OD
+    (6) statement -> . statements
+    (11) variables -> . VARIABLE
+    (12) variables -> . VARIABLE COMMA variables
+    (7) statements -> . statement SEMICOLON statement
+
+    SKIP            shift and go to state 1
+    ABORT           shift and go to state 7
+    IF              shift and go to state 5
+    DO              shift and go to state 3
+    VARIABLE        shift and go to state 2
+
+    statements                     shift and go to state 4
+    variables                      shift and go to state 8
+    statement                      shift and go to state 6
+
+state 1
+
+    (1) statement -> SKIP .
+
+    SEMICOLON       reduce using rule 1 (statement -> SKIP .)
+    $end            reduce using rule 1 (statement -> SKIP .)
+    OR              reduce using rule 1 (statement -> SKIP .)
+    OD              reduce using rule 1 (statement -> SKIP .)
+    FI              reduce using rule 1 (statement -> SKIP .)
+
+
+state 2
+
+    (11) variables -> VARIABLE .
+    (12) variables -> VARIABLE . COMMA variables
+
+    ASSIGN          reduce using rule 11 (variables -> VARIABLE .)
+    COMMA           shift and go to state 9
+
+
+state 3
+
+    (5) statement -> DO . contents OD
+    (9) contents -> . content
+    (10) contents -> . content OR contents
+    (8) content -> . expression ARROW statement
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression MINUS expression
+    (17) expression -> . expression TIMES expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . NUMBER
+    (20) expression -> . VARIABLE
+    (21) expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 11
+    VARIABLE        shift and go to state 10
+    LPAREN          shift and go to state 13
+
+    contents                       shift and go to state 14
+    expression                     shift and go to state 15
+    content                        shift and go to state 12
+
+state 4
+
+    (6) statement -> statements .
+
+    SEMICOLON       reduce using rule 6 (statement -> statements .)
+    $end            reduce using rule 6 (statement -> statements .)
+    OR              reduce using rule 6 (statement -> statements .)
+    OD              reduce using rule 6 (statement -> statements .)
+    FI              reduce using rule 6 (statement -> statements .)
+
+
+state 5
+
+    (4) statement -> IF . contents FI
+    (9) contents -> . content
+    (10) contents -> . content OR contents
+    (8) content -> . expression ARROW statement
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression MINUS expression
+    (17) expression -> . expression TIMES expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . NUMBER
+    (20) expression -> . VARIABLE
+    (21) expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 11
+    VARIABLE        shift and go to state 10
+    LPAREN          shift and go to state 13
+
+    contents                       shift and go to state 16
+    expression                     shift and go to state 15
+    content                        shift and go to state 12
+
+state 6
+
+    (0) S' -> statement .
+    (7) statements -> statement . SEMICOLON statement
+
+    SEMICOLON       shift and go to state 17
+
+
+state 7
+
+    (2) statement -> ABORT .
+
+    SEMICOLON       reduce using rule 2 (statement -> ABORT .)
+    $end            reduce using rule 2 (statement -> ABORT .)
+    OR              reduce using rule 2 (statement -> ABORT .)
+    OD              reduce using rule 2 (statement -> ABORT .)
+    FI              reduce using rule 2 (statement -> ABORT .)
+
+
+state 8
+
+    (3) statement -> variables . ASSIGN expressions
+
+    ASSIGN          shift and go to state 18
+
+
+state 9
+
+    (12) variables -> VARIABLE COMMA . variables
+    (11) variables -> . VARIABLE
+    (12) variables -> . VARIABLE COMMA variables
+
+    VARIABLE        shift and go to state 2
+
+    variables                      shift and go to state 19
+
+state 10
+
+    (20) expression -> VARIABLE .
+
+    COMMA           reduce using rule 20 (expression -> VARIABLE .)
+    PLUS            reduce using rule 20 (expression -> VARIABLE .)
+    MINUS           reduce using rule 20 (expression -> VARIABLE .)
+    TIMES           reduce using rule 20 (expression -> VARIABLE .)
+    DIVIDE          reduce using rule 20 (expression -> VARIABLE .)
+    SEMICOLON       reduce using rule 20 (expression -> VARIABLE .)
+    $end            reduce using rule 20 (expression -> VARIABLE .)
+    OR              reduce using rule 20 (expression -> VARIABLE .)
+    OD              reduce using rule 20 (expression -> VARIABLE .)
+    FI              reduce using rule 20 (expression -> VARIABLE .)
+    ARROW           reduce using rule 20 (expression -> VARIABLE .)
+    RPAREN          reduce using rule 20 (expression -> VARIABLE .)
+
+
+state 11
+
+    (19) expression -> NUMBER .
+
+    COMMA           reduce using rule 19 (expression -> NUMBER .)
+    PLUS            reduce using rule 19 (expression -> NUMBER .)
+    MINUS           reduce using rule 19 (expression -> NUMBER .)
+    TIMES           reduce using rule 19 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 19 (expression -> NUMBER .)
+    SEMICOLON       reduce using rule 19 (expression -> NUMBER .)
+    $end            reduce using rule 19 (expression -> NUMBER .)
+    OR              reduce using rule 19 (expression -> NUMBER .)
+    OD              reduce using rule 19 (expression -> NUMBER .)
+    FI              reduce using rule 19 (expression -> NUMBER .)
+    ARROW           reduce using rule 19 (expression -> NUMBER .)
+    RPAREN          reduce using rule 19 (expression -> NUMBER .)
+
+
+state 12
+
+    (9) contents -> content .
+    (10) contents -> content . OR contents
+
+    FI              reduce using rule 9 (contents -> content .)
+    OD              reduce using rule 9 (contents -> content .)
+    OR              shift and go to state 20
+
+
+state 13
+
+    (21) expression -> LPAREN . expression RPAREN
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression MINUS expression
+    (17) expression -> . expression TIMES expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . NUMBER
+    (20) expression -> . VARIABLE
+    (21) expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 11
+    VARIABLE        shift and go to state 10
+    LPAREN          shift and go to state 13
+
+    expression                     shift and go to state 21
+
+state 14
+
+    (5) statement -> DO contents . OD
+
+    OD              shift and go to state 22
+
+
+state 15
+
+    (8) content -> expression . ARROW statement
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . MINUS expression
+    (17) expression -> expression . TIMES expression
+    (18) expression -> expression . DIVIDE expression
+
+    ARROW           shift and go to state 24
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 23
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+
+
+state 16
+
+    (4) statement -> IF contents . FI
+
+    FI              shift and go to state 28
+
+
+state 17
+
+    (7) statements -> statement SEMICOLON . statement
+    (1) statement -> . SKIP
+    (2) statement -> . ABORT
+    (3) statement -> . variables ASSIGN expressions
+    (4) statement -> . IF contents FI
+    (5) statement -> . DO contents OD
+    (6) statement -> . statements
+    (11) variables -> . VARIABLE
+    (12) variables -> . VARIABLE COMMA variables
+    (7) statements -> . statement SEMICOLON statement
+
+    SKIP            shift and go to state 1
+    ABORT           shift and go to state 7
+    IF              shift and go to state 5
+    DO              shift and go to state 3
+    VARIABLE        shift and go to state 2
+
+    statements                     shift and go to state 4
+    variables                      shift and go to state 8
+    statement                      shift and go to state 29
+
+state 18
+
+    (3) statement -> variables ASSIGN . expressions
+    (13) expressions -> . expression
+    (14) expressions -> . expression COMMA expressions
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression MINUS expression
+    (17) expression -> . expression TIMES expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . NUMBER
+    (20) expression -> . VARIABLE
+    (21) expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 11
+    VARIABLE        shift and go to state 10
+    LPAREN          shift and go to state 13
+
+    expression                     shift and go to state 30
+    expressions                    shift and go to state 31
+
+state 19
+
+    (12) variables -> VARIABLE COMMA variables .
+
+    ASSIGN          reduce using rule 12 (variables -> VARIABLE COMMA variables .)
+
+
+state 20
+
+    (10) contents -> content OR . contents
+    (9) contents -> . content
+    (10) contents -> . content OR contents
+    (8) content -> . expression ARROW statement
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression MINUS expression
+    (17) expression -> . expression TIMES expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . NUMBER
+    (20) expression -> . VARIABLE
+    (21) expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 11
+    VARIABLE        shift and go to state 10
+    LPAREN          shift and go to state 13
+
+    contents                       shift and go to state 32
+    expression                     shift and go to state 15
+    content                        shift and go to state 12
+
+state 21
+
+    (21) expression -> LPAREN expression . RPAREN
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . MINUS expression
+    (17) expression -> expression . TIMES expression
+    (18) expression -> expression . DIVIDE expression
+
+    RPAREN          shift and go to state 33
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 23
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+
+
+state 22
+
+    (5) statement -> DO contents OD .
+
+    SEMICOLON       reduce using rule 5 (statement -> DO contents OD .)
+    $end            reduce using rule 5 (statement -> DO contents OD .)
+    OR              reduce using rule 5 (statement -> DO contents OD .)
+    OD              reduce using rule 5 (statement -> DO contents OD .)
+    FI              reduce using rule 5 (statement -> DO contents OD .)
+
+
+state 23
+
+    (16) expression -> expression MINUS . expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression MINUS expression
+    (17) expression -> . expression TIMES expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . NUMBER
+    (20) expression -> . VARIABLE
+    (21) expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 11
+    VARIABLE        shift and go to state 10
+    LPAREN          shift and go to state 13
+
+    expression                     shift and go to state 34
+
+state 24
+
+    (8) content -> expression ARROW . statement
+    (1) statement -> . SKIP
+    (2) statement -> . ABORT
+    (3) statement -> . variables ASSIGN expressions
+    (4) statement -> . IF contents FI
+    (5) statement -> . DO contents OD
+    (6) statement -> . statements
+    (11) variables -> . VARIABLE
+    (12) variables -> . VARIABLE COMMA variables
+    (7) statements -> . statement SEMICOLON statement
+
+    SKIP            shift and go to state 1
+    ABORT           shift and go to state 7
+    IF              shift and go to state 5
+    DO              shift and go to state 3
+    VARIABLE        shift and go to state 2
+
+    statement                      shift and go to state 35
+    statements                     shift and go to state 4
+    variables                      shift and go to state 8
+
+state 25
+
+    (15) expression -> expression PLUS . expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression MINUS expression
+    (17) expression -> . expression TIMES expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . NUMBER
+    (20) expression -> . VARIABLE
+    (21) expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 11
+    VARIABLE        shift and go to state 10
+    LPAREN          shift and go to state 13
+
+    expression                     shift and go to state 36
+
+state 26
+
+    (17) expression -> expression TIMES . expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression MINUS expression
+    (17) expression -> . expression TIMES expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . NUMBER
+    (20) expression -> . VARIABLE
+    (21) expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 11
+    VARIABLE        shift and go to state 10
+    LPAREN          shift and go to state 13
+
+    expression                     shift and go to state 37
+
+state 27
+
+    (18) expression -> expression DIVIDE . expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression MINUS expression
+    (17) expression -> . expression TIMES expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . NUMBER
+    (20) expression -> . VARIABLE
+    (21) expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 11
+    VARIABLE        shift and go to state 10
+    LPAREN          shift and go to state 13
+
+    expression                     shift and go to state 38
+
+state 28
+
+    (4) statement -> IF contents FI .
+
+    SEMICOLON       reduce using rule 4 (statement -> IF contents FI .)
+    $end            reduce using rule 4 (statement -> IF contents FI .)
+    OR              reduce using rule 4 (statement -> IF contents FI .)
+    OD              reduce using rule 4 (statement -> IF contents FI .)
+    FI              reduce using rule 4 (statement -> IF contents FI .)
+
+
+state 29
+
+    (7) statements -> statement SEMICOLON statement .
+    (7) statements -> statement . SEMICOLON statement
+
+    SEMICOLON       reduce using rule 7 (statements -> statement SEMICOLON statement .)
+    $end            reduce using rule 7 (statements -> statement SEMICOLON statement .)
+    OR              reduce using rule 7 (statements -> statement SEMICOLON statement .)
+    OD              reduce using rule 7 (statements -> statement SEMICOLON statement .)
+    FI              reduce using rule 7 (statements -> statement SEMICOLON statement .)
+
+  ! SEMICOLON       [ shift and go to state 17 ]
+
+
+state 30
+
+    (13) expressions -> expression .
+    (14) expressions -> expression . COMMA expressions
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . MINUS expression
+    (17) expression -> expression . TIMES expression
+    (18) expression -> expression . DIVIDE expression
+
+    SEMICOLON       reduce using rule 13 (expressions -> expression .)
+    $end            reduce using rule 13 (expressions -> expression .)
+    OR              reduce using rule 13 (expressions -> expression .)
+    OD              reduce using rule 13 (expressions -> expression .)
+    FI              reduce using rule 13 (expressions -> expression .)
+    COMMA           shift and go to state 39
+    PLUS            shift and go to state 25
+    MINUS           shift and go to state 23
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+
+
+state 31
+
+    (3) statement -> variables ASSIGN expressions .
+
+    SEMICOLON       reduce using rule 3 (statement -> variables ASSIGN expressions .)
+    $end            reduce using rule 3 (statement -> variables ASSIGN expressions .)
+    OR              reduce using rule 3 (statement -> variables ASSIGN expressions .)
+    OD              reduce using rule 3 (statement -> variables ASSIGN expressions .)
+    FI              reduce using rule 3 (statement -> variables ASSIGN expressions .)
+
+
+state 32
+
+    (10) contents -> content OR contents .
+
+    FI              reduce using rule 10 (contents -> content OR contents .)
+    OD              reduce using rule 10 (contents -> content OR contents .)
+
+
+state 33
+
+    (21) expression -> LPAREN expression RPAREN .
+
+    COMMA           reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    SEMICOLON       reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    OR              reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    OD              reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    FI              reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    ARROW           reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+
+
+state 34
+
+    (16) expression -> expression MINUS expression .
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . MINUS expression
+    (17) expression -> expression . TIMES expression
+    (18) expression -> expression . DIVIDE expression
+
+    COMMA           reduce using rule 16 (expression -> expression MINUS expression .)
+    PLUS            reduce using rule 16 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 16 (expression -> expression MINUS expression .)
+    SEMICOLON       reduce using rule 16 (expression -> expression MINUS expression .)
+    $end            reduce using rule 16 (expression -> expression MINUS expression .)
+    OR              reduce using rule 16 (expression -> expression MINUS expression .)
+    OD              reduce using rule 16 (expression -> expression MINUS expression .)
+    FI              reduce using rule 16 (expression -> expression MINUS expression .)
+    ARROW           reduce using rule 16 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 16 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+
+  ! TIMES           [ reduce using rule 16 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 16 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 25 ]
+  ! MINUS           [ shift and go to state 23 ]
+
+
+state 35
+
+    (8) content -> expression ARROW statement .
+    (7) statements -> statement . SEMICOLON statement
+
+    OR              reduce using rule 8 (content -> expression ARROW statement .)
+    OD              reduce using rule 8 (content -> expression ARROW statement .)
+    FI              reduce using rule 8 (content -> expression ARROW statement .)
+    SEMICOLON       shift and go to state 17
+
+
+state 36
+
+    (15) expression -> expression PLUS expression .
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . MINUS expression
+    (17) expression -> expression . TIMES expression
+    (18) expression -> expression . DIVIDE expression
+
+    COMMA           reduce using rule 15 (expression -> expression PLUS expression .)
+    PLUS            reduce using rule 15 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 15 (expression -> expression PLUS expression .)
+    SEMICOLON       reduce using rule 15 (expression -> expression PLUS expression .)
+    $end            reduce using rule 15 (expression -> expression PLUS expression .)
+    OR              reduce using rule 15 (expression -> expression PLUS expression .)
+    OD              reduce using rule 15 (expression -> expression PLUS expression .)
+    FI              reduce using rule 15 (expression -> expression PLUS expression .)
+    ARROW           reduce using rule 15 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 15 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 26
+    DIVIDE          shift and go to state 27
+
+  ! TIMES           [ reduce using rule 15 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 15 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 25 ]
+  ! MINUS           [ shift and go to state 23 ]
+
+
+state 37
+
+    (17) expression -> expression TIMES expression .
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . MINUS expression
+    (17) expression -> expression . TIMES expression
+    (18) expression -> expression . DIVIDE expression
+
+    COMMA           reduce using rule 17 (expression -> expression TIMES expression .)
+    PLUS            reduce using rule 17 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 17 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 17 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 17 (expression -> expression TIMES expression .)
+    SEMICOLON       reduce using rule 17 (expression -> expression TIMES expression .)
+    $end            reduce using rule 17 (expression -> expression TIMES expression .)
+    OR              reduce using rule 17 (expression -> expression TIMES expression .)
+    OD              reduce using rule 17 (expression -> expression TIMES expression .)
+    FI              reduce using rule 17 (expression -> expression TIMES expression .)
+    ARROW           reduce using rule 17 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 17 (expression -> expression TIMES expression .)
+
+  ! PLUS            [ shift and go to state 25 ]
+  ! MINUS           [ shift and go to state 23 ]
+  ! TIMES           [ shift and go to state 26 ]
+  ! DIVIDE          [ shift and go to state 27 ]
+
+
+state 38
+
+    (18) expression -> expression DIVIDE expression .
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . MINUS expression
+    (17) expression -> expression . TIMES expression
+    (18) expression -> expression . DIVIDE expression
+
+    COMMA           reduce using rule 18 (expression -> expression DIVIDE expression .)
+    PLUS            reduce using rule 18 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 18 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 18 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 18 (expression -> expression DIVIDE expression .)
+    SEMICOLON       reduce using rule 18 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 18 (expression -> expression DIVIDE expression .)
+    OR              reduce using rule 18 (expression -> expression DIVIDE expression .)
+    OD              reduce using rule 18 (expression -> expression DIVIDE expression .)
+    FI              reduce using rule 18 (expression -> expression DIVIDE expression .)
+    ARROW           reduce using rule 18 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 18 (expression -> expression DIVIDE expression .)
+
+  ! PLUS            [ shift and go to state 25 ]
+  ! MINUS           [ shift and go to state 23 ]
+  ! TIMES           [ shift and go to state 26 ]
+  ! DIVIDE          [ shift and go to state 27 ]
+
+
+state 39
+
+    (14) expressions -> expression COMMA . expressions
+    (13) expressions -> . expression
+    (14) expressions -> . expression COMMA expressions
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression MINUS expression
+    (17) expression -> . expression TIMES expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . NUMBER
+    (20) expression -> . VARIABLE
+    (21) expression -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 11
+    VARIABLE        shift and go to state 10
+    LPAREN          shift and go to state 13
+
+    expressions                    shift and go to state 40
+    expression                     shift and go to state 30
+
+state 40
+
+    (14) expressions -> expression COMMA expressions .
+
+    SEMICOLON       reduce using rule 14 (expressions -> expression COMMA expressions .)
+    $end            reduce using rule 14 (expressions -> expression COMMA expressions .)
+    OR              reduce using rule 14 (expressions -> expression COMMA expressions .)
+    OD              reduce using rule 14 (expressions -> expression COMMA expressions .)
+    FI              reduce using rule 14 (expressions -> expression COMMA expressions .)
+

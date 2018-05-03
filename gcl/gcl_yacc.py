@@ -4,10 +4,9 @@ from gcl_lex import tokens
 
 precedence = (
 		('nonassoc', 'IF', 'FI', 'DO', 'OD'),
-		('nonassoc', 'SEMICOLON'),
-		('nonassoc', 'ARROW'),
+		('left', 'SEMICOLON'),
+		('nonassoc', 'ARROW', 'ASSIGN'),
 		('nonassoc', 'COMMA'),
-		('nonassoc', 'ASSIGN'),
 		('left', 'PLUS', 'MINUS'),
 		('left', 'TIMES', 'DIVIDE'),
 )
@@ -18,35 +17,35 @@ precedence = (
 
 def p_statement_one(p):
     '''statement : SKIP
-                | ABORT
-                | expression'''
-    p[0] = p[1]
+                | ABORT '''
+    p[0] = (p[1],)
 
 
 def p_statement_assign(p):
     'statement : variables ASSIGN expressions'
     p[0] = ('assign', p[1], p[3])
 
-
-def p_statement_concat(p):
-    'statement : expression SEMICOLON statement'
-    p[0] = ('concatenate', p[1], p[3])
-
-
 def p_statement_if(p):
     'statement : IF contents FI'
     p[0] = ('if', p[2])
-
 
 def p_statement_do(p):
     'statement : DO contents OD'
     p[0] = ('do', p[2])
 
+def p_statement_statements(p):
+	'statement : statements'
+	p[0] = p[1]
+
+def p_statements_concat(p):
+	#'''statement : statement SEMICOLON statement'''
+	'''statements : statement SEMICOLON statement'''
+	p[0] = ('concat', p[1], p[3])
 
 # 3. content
 
 def p_content_guard(p):
-    'content : expression ARROW expression'
+    'content : expression ARROW statement'
     p[0] = ('guard', p[1], p[3])
 
 def p_contents_one(p):
@@ -62,7 +61,7 @@ def p_contents(p):
 
 def p_variables_one(p):
     '''variables : VARIABLE'''
-    p[0] = p[1]
+    p[0] = ('variables', p[1])
 
 def p_variables(p):
     '''variables : VARIABLE COMMA variables'''
@@ -70,7 +69,7 @@ def p_variables(p):
 
 def p_expressions_one(p):
     '''expressions : expression'''
-    p[0] = p[1]
+    p[0] = ('expressions', p[1])
 
 def p_expressions(p):
     '''expressions : expression COMMA expressions'''
