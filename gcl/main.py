@@ -6,7 +6,6 @@ import sys
 
 if __name__ == "__main__":
 	data = sys.argv
-	print(data)
 
 	if len(data) < 2:
 		while True:
