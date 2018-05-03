@@ -33,7 +33,7 @@ if __name__ == "__main__":
 					try:
 						d = prettify(result)
 						pprint(d)
-						f.write(str(pformat(d, indent = 4)))
+						f.write(str(pformat(d)))
 						f.write('\n\n')
 						print()
 					except:
