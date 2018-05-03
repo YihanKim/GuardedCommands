@@ -59,3 +59,14 @@ content
 
 ```
 
+## 실행 예시
+```
+$ GCL > if x * 3 + 1 -> y fi
+('if', ('guard', ('+', ('*', 'x', 3), 1), 'y'))
+
+$ GCL > thisismyvariablewhichislongerthantheotherexample := 10000000000000000000000000000
+('assign', 'thisismyvariablewhichislongerthantheotherexample', 10000000000000000000000000000)
+
+$ GCL > do x->y | y->z | z->x od
+('do', ('contents', ('guard', 'x', 'y'), ('contents', ('guard', 'y', 'z'), ('guard', 'z', 'x'))))
+```
