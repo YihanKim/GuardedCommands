@@ -25,6 +25,14 @@ def p_statement_assign(p):
     'statement : variables ASSIGN expressions'
     p[0] = ('assign', p[1], p[3])
 
+def p_statement_empty_if(p):
+	'statement : IF FI'
+	p[0] = ('abort',)
+
+def p_statement_empty_do(p):
+	'statement : DO OD'
+	p[0] = ('skip',)
+
 def p_statement_if(p):
     'statement : IF contents FI'
     p[0] = ('if', p[2])
@@ -136,13 +144,17 @@ def prettify(s):
 # Build the parser
 parser = yacc.yacc()
 
-while True:
-	try:
-		s = input('GCL > ')
-	except EOFError:
-		break
-	if not s: continue
-	result = parser.parse(s)
-	#pprint.pprint(result)
-	pprint.pprint(prettify(result))
+if __name__ == "__main__":
+
+	while True:
+		try:
+			s = input('GCL > ')
+		except EOFError:
+			break
+		if not s: 
+			break
+			continue
+		result = parser.parse(s)
+		#pprint.pprint(result)
+		pprint.pprint(prettify(result))
 

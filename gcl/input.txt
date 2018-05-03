@@ -1,0 +1,28 @@
+# test 0 : abort, skip
+abort
+skip
+
+# test 1 : assignment
+v := 1
+a, b := 2, 3
+ash, ben, carl, dave := 12893892189, 4848, 85912389548932, 1
+t, u, v := (3 + 5 / 7), 8 - 3, 6
+
+# test 2 : concatenation
+x := 1; y := 2
+x := 3; y := 4; z := x + y; abort
+
+# test 3 : if statement
+if fi
+if x - y -> y := x fi
+if x + y -> z := z + 3 | y + z -> x := x + 3 | z + x -> y := y + 3 fi
+
+
+# test 4 : do statement
+do od
+do x + y -> z := z + 3 | y + z -> x := x + 3 | z + x -> y := y + 3 od
+
+# test 3 : real algorithms(max, euclidean)
+a, b := A, B; do b - a -> b := b - a | a - b -> a := a - b od
+a, b, x, y, u, v := A, B, 1, 0, 0, 1; do b -> q, r := a / b, a - (a / b) * b; a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v od
+
