@@ -6,7 +6,7 @@ precedence = (
 		('nonassoc', 'IF', 'FI', 'DO', 'OD'),
 		('left', 'SEMICOLON'),
 		('nonassoc', 'ARROW', 'ASSIGN'),
-		('nonassoc', 'COMMA'),
+		('left', 'COMMA'),
 		('left', 'PLUS', 'MINUS'),
 		('left', 'TIMES', 'DIVIDE'),
 )
@@ -95,10 +95,46 @@ def p_expression_paren(p):
 	'''expression : LPAREN expression RPAREN'''
 	p[0] = ("paren", p[2])
 
+def p_error(t):
+    print("Syntax error at '%s'" % t.value)
 
 
+# pretifier
+import pprint
+
+def prettify(s):
+	if not type(s) == tuple:
+		return s
+	token = s[0]
+	
+	if s[0] in ('contents', 'expressions', 'variables', 'statements'):
+		
+		# 임시 변수 d를 사용하여 연결 리스트와 같이 되풀이하는 구조를 배열로 만들기
+		d = s
+		L = [d[0]]
+
+		while True:
+			L.append(prettify(d[1]))
+
+			if len(d) == 2:
+				break
+	
+			tmp = prettify(d[2])
+			
+			if type(tmp) == list and tmp[0] == s[0] and len(d) == 3:
+				d = d[2]
+				continue
+
+			else:
+				L.append(tmp)
+				break
+
+		return L
+	
+	else:
+		return list(map(prettify, s))
 # Build the parser
-parser = yacc.yacc(debug=1)
+parser = yacc.yacc()
 
 while True:
 	try:
@@ -106,6 +142,7 @@ while True:
 	except EOFError:
 		break
 	if not s: continue
-	result = parser.parse(s, tracking=True, debug=1)
-	print(result)
+	result = parser.parse(s)
+	#pprint.pprint(result)
+	pprint.pprint(prettify(result))
 
