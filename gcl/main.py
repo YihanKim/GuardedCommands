@@ -4,7 +4,7 @@ import sys
 
 #print(parser)
 
-if __name__ == "__main__":
+def main():
 	data = sys.argv
 
 	if len(data) < 2:
@@ -39,3 +39,7 @@ if __name__ == "__main__":
 						print("failed to parse " + line)
 	else:
 		print("use only one argument")
+
+
+if __name__ == "__main__":
+	main()

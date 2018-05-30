@@ -1,6 +1,7 @@
 
 import ply.yacc as yacc
 from gcl_lex import tokens
+import pprint
 
 # group은 우선순위 의미
 
@@ -99,7 +100,7 @@ def p_expression_binary(p):
 	'''expression : expression PLUS expression
 				| expression MINUS expression
 				| expression TIMES expression
-                                | expression DIVIDE expression
+                | expression DIVIDE expression
 				| expression AND expression
 				| expression OR expression
 				| expression XOR expression
@@ -117,9 +118,12 @@ def p_expression_unary(p):
 	p[0] = (p[1], p[2])
 
 def p_expression_value(p):
-	'''expression : NUMBER 
-				| VARIABLE'''
-	p[0] = p[1]
+	'''expression : NUMBER''' 
+	p[0] = ('number', p[1])
+
+def p_expression_variable(p):
+	'''expression : VARIABLE'''
+	p[0] = ('variable', p[1])
 
 def p_expression_paren(p):
 	'''expression : LPAREN expression RPAREN'''
@@ -130,8 +134,6 @@ def p_error(t):
 
 
 # pretifier
-import pprint
-
 def prettify(s):
 	if not type(s) == tuple:
 		return s

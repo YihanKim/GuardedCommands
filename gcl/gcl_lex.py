@@ -61,7 +61,6 @@ tokens = [
    'RPAREN',
    'SPLIT',
    'COMMA',
-   # 불 연산자 추가
    'AND',
    'OR',
    'NOT',
@@ -98,14 +97,13 @@ t_RPAREN  = r'\)'
 t_SEMICOLON = r';'
 t_SPLIT = r'\|'
 t_COMMA = r'\,'
-# BOOLEAN 토큰 추가
 t_AND   = r'&&'
 t_OR    = r'\|\|'
 t_NOT   = r'!'
 t_XOR   = r'\^'
 t_LESS  = r'<'
 t_GREATER = r'>'
-t_EQUAL = r'='
+t_EQUAL = r'=='
 t_NOTEQUAL = r'!='
 t_GEQUAL = r'>='
 t_LEQUAL = r'<='
@@ -122,27 +120,16 @@ def t_VARIABLE(t):
     t.type = reserved.get(t.value,'VARIABLE')
     return t
 
-# Define a rule so we can track line numbers
-#def t_newline(t):
-#    r'\n+'
-#    t.lexer.lineno += len(t.value)
-
-
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t\n'
-
 
 # Error handling rule
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
-
-
-
 # Build the lexer
 lexer = lex.lex()
-
 
 # Test it out
 data = '''
@@ -157,9 +144,6 @@ q, r := a / b, a - (a / b);
 a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v
 od
 '''
-
-#data = "if 1 -> 3 fi"
-
 
 if __name__ == "__main__":
     lexer.input(data)
