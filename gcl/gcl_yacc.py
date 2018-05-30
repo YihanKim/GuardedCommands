@@ -61,7 +61,7 @@ def p_contents_one(p):
     p[0] = p[1]
 
 def p_contents(p):
-    'contents : content OR contents'
+    'contents : content SPLIT contents'
     p[0] = ('contents', p[1], p[3])
 
 

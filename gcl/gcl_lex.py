@@ -59,8 +59,19 @@ tokens = [
    'DIVIDE',
    'LPAREN',
    'RPAREN',
-   'OR',
+   'SPLIT',
    'COMMA',
+   # 불 연산자 추가
+   'AND',
+   'OR',
+   'NOT',
+   'XOR',
+   'LESS',
+   'GREATER',
+   'EQUAL',
+   'NOTEQUAL',
+   'GEQUAL',
+   'LEQUAL',
 ]
 
 # 변수 기능이 있으므로, 스트링을 포함하는 토큰은 별도 관리
@@ -85,8 +96,19 @@ t_DIVIDE  = r'/'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
 t_SEMICOLON = r';'
-t_OR = r'\|'
+t_SPLIT = r'\|'
 t_COMMA = r'\,'
+# BOOLEAN 토큰 추가
+t_AND   = r'&&'
+t_OR    = r'\|\|'
+t_NOT   = r'!'
+t_XOR   = r'\^'
+t_LESS  = r'<'
+t_GREATER = r'>'
+t_EQUAL = r'='
+t_NOTEQUAL = r'!='
+t_GEQUAL = r'>='
+t_LEQUAL = r'<='
 
 # 자연수 처리 
 def t_NUMBER(t):
