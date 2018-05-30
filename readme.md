@@ -15,7 +15,6 @@
 sudo apt-get install python3-pip
 pip3 install ply
 python3 gcl_yacc.py
-
 ```
 
 
@@ -40,6 +39,16 @@ expression
 	| <E> / <E>
 	| <E> + <E>
 	| <E> - <E>
+	| <E> && <E>
+	| <E> || <E>
+	| <E> ^ <E>
+	| !<E>
+	| <E> == <E>
+	| <E> != <E>
+	| <E> > <E>
+	| <E> < <E>
+	| <E> >= <E>
+	| <E> <= <E>
 	| (<E>)
 
 integer <I> 
@@ -59,12 +68,10 @@ contents
 
 content 
 <C> ::= <E> -> <S>
-
 ```
 
 ## 실행 예시
 ```
-
 $ python3 gcl_yacc.py
 
 GCL > if x * 3 + 1 -> y fi

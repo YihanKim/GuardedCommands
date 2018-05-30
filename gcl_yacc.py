@@ -95,7 +95,7 @@ def p_expressions(p):
 
 # 1. expression 기능들
 
-def p_expression(p):
+def p_expression_binary(p):
 	'''expression : expression PLUS expression
 				| expression MINUS expression
 				| expression TIMES expression
@@ -116,7 +116,7 @@ def p_expression_unary(p):
 	'''expression : NOT expression'''
 	p[0] = (p[1], p[2])
 
-def p_expression_one(p):
+def p_expression_value(p):
 	'''expression : NUMBER 
 				| VARIABLE'''
 	p[0] = p[1]
@@ -138,36 +138,29 @@ def prettify(s):
 	token = s[0]
 	
 	if s[0] in ('contents', 'expressions', 'variables', 'statements'):
-		
 		# 임시 변수 d를 사용하여 연결 리스트와 같이 되풀이하는 구조를 배열로 만들기
 		d = s
 		L = [d[0]]
-
 		while True:
 			L.append(prettify(d[1]))
-
 			if len(d) == 2:
 				break
-	
 			tmp = prettify(d[2])
-			
 			if type(tmp) == list and tmp[0] == s[0] and len(d) == 3:
 				d = d[2]
 				continue
-
 			else:
 				L.append(tmp)
 				break
-
 		return L
 	
 	else:
 		return list(map(prettify, s))
+
 # Build the parser
 parser = yacc.yacc()
 
 if __name__ == "__main__":
-
 	while True:
 		try:
 			s = input('GCL > ')
@@ -177,6 +170,5 @@ if __name__ == "__main__":
 			break
 			continue
 		result = parser.parse(s)
-		#pprint.pprint(result)
 		pprint.pprint(prettify(result))
 
