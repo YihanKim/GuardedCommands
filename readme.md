@@ -1,6 +1,8 @@
 
 # Guarded Command Language parser
-2018 봄학기 CS522 형식언어 및 오토마타 이론 프로젝트 1
+
+2018 봄학기 CS522 형식언어 및 오토마타 이론 프로젝트
+
 20183111 김이한
 
 ## 개요
@@ -12,11 +14,15 @@
 
 ## 실행 방법(Ubuntu 16.04)
 ```
-sudo apt-get install python3-pip
+git clone https://github.com/yihankim/cs522 ~/GC
+cd ~/GC
+sudo apt-get install -y python3-pip
+pip3 install virtualenv
+virtualenv venv
+source venv/bin/activate
 pip3 install ply
-python3 gcl_yacc.py
+python3 main.py
 ```
-
 
 ## 문법 구조
 

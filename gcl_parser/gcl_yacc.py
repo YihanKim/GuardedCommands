@@ -139,7 +139,7 @@ def prettify(s):
         return s
     token = s[0]
 
-    if s[0] in ('contents', 'expressions', 'variables', 'statements'):
+    if s[0] in ('concat', 'contents', 'expressions', 'variables', 'statements'):
         # 임시 변수 d를 사용하여 연결 리스트와 같이 되풀이하는 구조를 배열로 만들기
         d = s
         L = [d[0]]

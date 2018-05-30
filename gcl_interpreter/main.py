@@ -1,39 +1,34 @@
-from gcl_yacc import parser, prettify
-from pprint import pprint, pformat
+from gcl_interpreter import eval_stmt, eval_expr
 import sys
 
-def safe_parse(s, print_result=False):
-    try:
-        result = parser.parse(s)
-        result = prettify(result)
-    except:
-        print("파싱에 실패했습니다")
-        return None
 
-    if print_result:
-        pprint(result)
-    
-    return result
+def safe_eval_stmt(s):
+    try:
+        result = eval_stmt(s, dict())
+        return result
+    except:
+        print(sys.exc_info())
+        return str()
 
 
 def main():
     data = sys.argv
 
     if len(data) < 2:
-        
+
         while True:
             try:
-                s = input("GCL > ") 
+                s = input("AST > ")
             except KeyboardInterrupt:
                 print()
                 print("bye")
                 break
-            
-            if not s: 
-                print("bye")	
+
+            if not s:
+                print("bye")
                 break
 
-            result = safe_parse(s, print_result = True)
+            result = safe_eval_stmt(eval(s))
 
     elif len(data) <= 3:
         try:
@@ -57,13 +52,11 @@ def main():
                     print(line)
                     f.write(line)
                 else:
-                    result = safe_parse(line, print_result = True)
+                    result = safe_eval_stmt(eval(line))
                     f.write(str(result))
 
                 f.write('\n')
 
-    else:
-        print("최대 2개의 인자만 사용 가능합니다.")
 
 if __name__ == "__main__":
     main()

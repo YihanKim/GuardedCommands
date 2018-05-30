@@ -1,0 +1,35 @@
+# test 0 : abort, skip
+
+{}
+
+# test 1 : assignment
+{'v': 1}
+{'b': 3, 'a': 2}
+{'ash': 12893892189, 'carl': 85912389548932, 'ben': 4848, 'dave': 1}
+
+
+# test 2 : concatenation
+{'x': 1, 'y': 2}
+
+
+# test 3 : if statement
+
+
+
+
+
+# test 4 : do statement
+{}
+
+
+# test 5 : real algorithms(max, euclidean)
+
+
+
+# test 6 : boolean features
+{'z': False}
+
+
+
+
+

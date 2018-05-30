@@ -1,0 +1,35 @@
+# test 0 : abort, skip
+['abort']
+['skip']
+
+# test 1 : assignment
+['assign', ['variables', 'v'], ['expressions', ['number', 1]]]
+['assign', ['variables', 'a', 'b'], ['expressions', ['number', 2], ['number', 3]]]
+['assign', ['variables', 'ash', 'ben', 'carl', 'dave'], ['expressions', ['number', 12893892189], ['number', 4848], ['number', 85912389548932], ['number', 1]]]
+['assign', ['variables', 't', 'u', 'v'], ['expressions', ['paren', ['+', ['number', 3], ['/', ['number', 5], ['number', 7]]]], ['-', ['number', 8], ['number', 3]], ['number', 6]]]
+
+# test 2 : concatenation
+['concat', ['assign', ['variables', 'x'], ['expressions', ['number', 1]]], ['assign', ['variables', 'y'], ['expressions', ['number', 2]]]]
+['concat', ['concat', ['concat', ['assign', ['variables', 'x'], ['expressions', ['number', 3]]], ['assign', ['variables', 'y'], ['expressions', ['number', 4]]]], ['assign', ['variables', 'z'], ['expressions', ['+', ['variable', 'x'], ['variable', 'y']]]]], ['abort']]
+
+# test 3 : if statement
+['abort']
+['if', ['guard', ['-', ['variable', 'x'], ['variable', 'y']], ['assign', ['variables', 'y'], ['expressions', ['variable', 'x']]]]]
+['if', ['contents', ['guard', ['+', ['variable', 'x'], ['variable', 'y']], ['assign', ['variables', 'z'], ['expressions', ['+', ['variable', 'z'], ['number', 3]]]]], ['guard', ['+', ['variable', 'y'], ['variable', 'z']], ['assign', ['variables', 'x'], ['expressions', ['+', ['variable', 'x'], ['number', 3]]]]], ['guard', ['+', ['variable', 'z'], ['variable', 'x']], ['assign', ['variables', 'y'], ['expressions', ['+', ['variable', 'y'], ['number', 3]]]]]]]
+
+
+# test 4 : do statement
+['skip']
+['do', ['contents', ['guard', ['+', ['variable', 'x'], ['variable', 'y']], ['assign', ['variables', 'z'], ['expressions', ['+', ['variable', 'z'], ['number', 3]]]]], ['guard', ['+', ['variable', 'y'], ['variable', 'z']], ['assign', ['variables', 'x'], ['expressions', ['+', ['variable', 'x'], ['number', 3]]]]], ['guard', ['+', ['variable', 'z'], ['variable', 'x']], ['assign', ['variables', 'y'], ['expressions', ['+', ['variable', 'y'], ['number', 3]]]]]]]
+
+# test 5 : real algorithms(max, euclidean)
+['concat', ['assign', ['variables', 'a', 'b'], ['expressions', ['variable', 'A'], ['variable', 'B']]], ['do', ['contents', ['guard', ['-', ['variable', 'b'], ['variable', 'a']], ['assign', ['variables', 'b'], ['expressions', ['-', ['variable', 'b'], ['variable', 'a']]]]], ['guard', ['-', ['variable', 'a'], ['variable', 'b']], ['assign', ['variables', 'a'], ['expressions', ['-', ['variable', 'a'], ['variable', 'b']]]]]]]]
+['concat', ['assign', ['variables', 'a', 'b', 'x', 'y', 'u', 'v'], ['expressions', ['variable', 'A'], ['variable', 'B'], ['number', 1], ['number', 0], ['number', 0], ['number', 1]]], ['do', ['guard', ['variable', 'b'], ['concat', ['assign', ['variables', 'q', 'r'], ['expressions', ['/', ['variable', 'a'], ['variable', 'b']], ['-', ['variable', 'a'], ['*', ['paren', ['/', ['variable', 'a'], ['variable', 'b']]], ['variable', 'b']]]]], ['assign', ['variables', 'a', 'b', 'x', 'y', 'u', 'v'], ['expressions', ['variable', 'b'], ['variable', 'r'], ['variable', 'u'], ['variable', 'v'], ['-', ['variable', 'x'], ['*', ['variable', 'q'], ['variable', 'u']]], ['-', ['variable', 'y'], ['*', ['variable', 'q'], ['variable', 'v']]]]]]]]]
+
+# test 6 : boolean features
+['assign', ['variables', 'z'], ['expressions', ['>', ['variable', 'x'], ['variable', 'y']]]]
+['assign', ['variables', 'z'], ['expressions', ['||', ['>', ['variable', 'x'], ['variable', 'y']], ['>', ['variable', 'y'], ['variable', 'x']]]]]
+['assign', ['variables', 'z'], ['expressions', ['==', ['paren', ['||', ['paren', ['>', ['variable', 'x'], ['variable', 'y']]], ['paren', ['<', ['variable', 'x'], ['variable', 'y']]]]], ['!', ['paren', ['==', ['variable', 'x'], ['variable', 'y']]]]]]]
+['concat', ['assign', ['variables', 'x', 'y', 'z'], ['expressions', ['<', ['number', 1], ['number', 2]], ['<=', ['number', 1], ['number', 2]], ['!=', ['number', 1], ['number', 2]]]], ['if', ['contents', ['guard', ['paren', ['>', ['variable', 'x'], ['number', 3]]], ['assign', ['variables', 'y'], ['expressions', ['^', ['variable', 'x'], ['variable', 'z']]]]], ['guard', ['==', ['variable', 'y'], ['number', 1]], ['assign', ['variables', 'y'], ['expressions', ['&&', ['variable', 'z'], ['variable', 'x']]]]]]]]
+['assign', ['variables', 'z'], ['expressions', ['||', ['^', ['number', 0], ['&&', ['number', 1], ['number', 1]]], ['number', 0]]]]
+
