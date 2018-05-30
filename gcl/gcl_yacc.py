@@ -2,13 +2,23 @@
 import ply.yacc as yacc
 from gcl_lex import tokens
 
+# group은 우선순위 의미
+
 precedence = (
+                # 우선순위 낮음
 		('nonassoc', 'IF', 'FI', 'DO', 'OD'),
 		('left', 'SEMICOLON'),
 		('nonassoc', 'ARROW', 'ASSIGN'),
 		('left', 'COMMA'),
-		('left', 'PLUS', 'MINUS'),
-		('left', 'TIMES', 'DIVIDE'),
+                ('left', 'OR'), # group 14
+                ('left', 'XOR'), # group 11
+                ('left', 'AND') # group 10
+                ('left', 'EQUAL', 'NOTEQUAL'), # group 9
+                ('left', 'LESS', 'GREATER', 'LEQUAL', 'GEQUAL') # group 8
+		('left', 'PLUS', 'MINUS'), # group 6
+		('left', 'TIMES', 'DIVIDE'), # group 5
+                ('left', 'NOT'), # group 3
+                # 우선순위 높음
 )
 
 # parser rule은 top-down으로 제작
@@ -19,7 +29,6 @@ def p_statement_one(p):
     '''statement : SKIP
                 | ABORT '''
     p[0] = (p[1],)
-
 
 def p_statement_assign(p):
     'statement : variables ASSIGN expressions'
