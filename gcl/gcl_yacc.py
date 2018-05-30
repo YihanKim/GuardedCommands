@@ -12,16 +12,16 @@ precedence = (
 		('left', 'COMMA'),
                 ('left', 'OR'), # group 14
                 ('left', 'XOR'), # group 11
-                ('left', 'AND') # group 10
+                ('left', 'AND'), # group 10
                 ('left', 'EQUAL', 'NOTEQUAL'), # group 9
-                ('left', 'LESS', 'GREATER', 'LEQUAL', 'GEQUAL') # group 8
+                ('left', 'LESS', 'GREATER', 'LEQUAL', 'GEQUAL'), # group 8
 		('left', 'PLUS', 'MINUS'), # group 6
 		('left', 'TIMES', 'DIVIDE'), # group 5
-                ('left', 'NOT'), # group 3
+                ('right', 'NOT'), # group 3
                 # 우선순위 높음
 )
 
-# parser rule은 top-down으로 제작
+# parser rule은 top-down으로 작성
 
 # 4. statement
 
@@ -99,9 +99,22 @@ def p_expression(p):
 	'''expression : expression PLUS expression
 				| expression MINUS expression
 				| expression TIMES expression
-				| expression DIVIDE expression
+                                | expression DIVIDE expression
+				| expression AND expression
+				| expression OR expression
+				| expression XOR expression
+				| expression EQUAL expression
+				| expression NOTEQUAL expression
+				| expression LESS expression
+				| expression GREATER expression
+				| expression LEQUAL expression
+				| expression GEQUAL expression
 	'''
 	p[0] = (p[2], p[1], p[3])
+
+def p_expression_unary(p):
+	'''expression : NOT expression'''
+	p[0] = (p[1], p[2])
 
 def p_expression_one(p):
 	'''expression : NUMBER 
