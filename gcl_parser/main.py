@@ -23,23 +23,37 @@ def main():
             except:
                 print("failed to parse")
 
-    elif len(data) == 2:
+    elif len(data) <= 3:
         lines = [line.rstrip('\n') for line in open(data[1])]
-        with open('output.txt', 'w') as f:
+
+        if len(data) == 2:
+            output_file = 'output.txt'
+        else:
+            output_file = data[2]
+
+        with open(output_file, 'w') as f:
             for line in lines:
-                if len(line) and line[0] != "#":
+                
+                if len(line) == 0:
+                    print(line)
+
+                elif line[0] == "#":
+                    print(line)
+                    f.write(line)
+                    
+                else:
                     result = parser.parse(line)
                     try:
                         d = prettify(result)
                         pprint(d)
-                        f.write(str(pformat(d)))
-                        f.write('\n\n')
-                        print()
+                        f.write(str(d))
                     except:
                         print("failed to parse " + line)
-    else:
-        print("use only one argument")
 
+                f.write('\n')
+
+    else:
+        print("use at most 2 arguments")
 
 if __name__ == "__main__":
     main()

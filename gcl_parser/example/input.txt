@@ -27,7 +27,9 @@ a, b := A, B; do b - a -> b := b - a | a - b -> a := a - b od
 a, b, x, y, u, v := A, B, 1, 0, 0, 1; do b -> q, r := a / b, a - (a / b) * b; a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v od
 
 # test 6 : boolean features
-
 z := x > y
 z := x > y || y > x
 z := ((x > y) || (x < y)) == !(x == y)
+x, y, z := 1 < 2, 1 <= 2, 1 != 2; if (x > 3) -> y := x ^ z | y == 1 -> y := z && x fi
+z := 0 ^ 1 && 1 || 0
+
