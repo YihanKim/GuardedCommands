@@ -22,7 +22,7 @@ if x + y -> z := z + 3 | y + z -> x := x + 3 | z + x -> y := y + 3 fi
 do od
 do x + y -> z := z + 3 | y + z -> x := x + 3 | z + x -> y := y + 3 od
 
-# test 3 : real algorithms(max, euclidean)
+# test 5 : real algorithms(max, euclidean)
 a, b := A, B; do b - a -> b := b - a | a - b -> a := a - b od
 a, b, x, y, u, v := A, B, 1, 0, 0, 1; do b -> q, r := a / b, a - (a / b) * b; a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v od
 
