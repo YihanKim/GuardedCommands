@@ -1,21 +1,21 @@
 # CS522 프로젝트 #1
 # 20130143 김이한
 
-# 1. 개요
 # Dijkstra의 Guarded Command Language를 parse tree로 변환하기
 # Linux에서 작성, Python 3.5.2
 # http://www.dabeaz.com/ply/ply.html
 # PLY 사이트 가보면 엄청 자세한 사용법이 나와 있음
 # lex 기본 골격을 가져와 작성함
 
-# 2. 문법
+
+# 문법
 
 # Statement <S> ::= skip
-#				| abort
-#				| <V>[,<V>] := <E>[,<E>]
-#				| <S> ; <S>[;<S>]
-#				| if <E> -> <S> [| <E> -> <S>] fi
-#				| do <E> -> <S> [| <E> -> <S>] od
+#		| abort
+#		| <V>[,<V>] := <E>[,<E>]
+#		| <S> ; <S>[;<S>]
+#		| if <E> -> <S> [| <E> -> <S>] fi
+#		| do <E> -> <S> [| <E> -> <S>] od
 
 # 동시 할당(a,b:=3,4)시 양 변의 수를 비교하는 것은 컴파일로 미룸
 # 여기서 if, do는 조건문 E가 0이 아닐 때 그에 대응하는 S가 실행된다.
@@ -23,20 +23,15 @@
 # Variable <V> is string
 
 # Expression <E> ::= <integer>
-#					| <V>
-#					| <E> + <E>
-#					| <E> - <E>
-#					| <E> * <E>
-#					| <E> / <E>
-#					| (<E>)
+#		| <V>
+#               | !<E>
+#		| <E> <BINOP> <E>
+#		| (<E>)
 
 # 정수 연산만 허용한다고 가정하자.
 # 앞에서 정의된 variable로 expression을 대체할 수 있다.
 
 
-# 방법
-# lex를 이용하여 토큰화
-# yacc을 이용하여 파싱 트리를 형성
 
 
 # 사용한 라이브러리 : Python Lex-Yacc(ply)의 lex, yacc
@@ -110,7 +105,7 @@ t_LEQUAL = r'<='
 
 # 자연수 처리 
 def t_NUMBER(t):
-    r'\d+'
+    r'[-+]?\d+'
     t.value = int(t.value)    
     return t
 
@@ -132,25 +127,29 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-data = '''
-x,y,z,w := 3 > 4,6,7,8;
-if 10<20-> 132;x> 2 ->skip fi;
-do 1*y = 1 -> (3 > 5);(25 -> 8) < 11 + 3 od
-'''
-data = '''
-a, b, x, y, u, v := A, B, 1, 0, 0, 1;
-do b > 0 ->
-q, r := a / b, a - (a / b);
-a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v
-od
-'''
+
+def main():
+    print("Project 1-1. GCL lexer test")
+    print("Guarded Command를 바탕으로 한 입력을 받아 토큰화 작업을 진행합니다.")
+    print("종료하려면 입력 없이 Enter를 누르세요")
+    while True:
+        try:
+            data = input("GCL_TOKENIZE > ")
+        except KeyboardInterrupt:
+            print()
+            print('bye')
+            break
+
+        if not data:
+            print("bye")
+            break
+
+        lexer.input(data)
+        while True:
+            tok = lexer.token()
+            if not tok: 
+                break      # No more input
+            print(tok)
 
 if __name__ == "__main__":
-    lexer.input(data)
-    while True:
-        tok = lexer.token()
-        if not tok: 
-            break      # No more input
-        print(tok)
-
-
+    main()

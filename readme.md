@@ -29,30 +29,32 @@ statement
 	| if <Cs> fi
 	| do <Cs> od
 
-variable <V> 
-string except reserved letter (if, fi, do, od, skip, abort)
+variable 
+<V> ::= ^[[a-zA-Z]+&&[^[if|fi|do|od|skip|abort]]]$
+# 예약어(if, fi, do, od, skip, abort)를 제외한 모든 문자열
 
 expression 
 <E> ::= <I>
 	| <V>
-	| <E> * <E>
+	| !<E> # 논리 연산
+	| (<E>) # 괄호 - 우선순위 변경
+	| <E> * <E> # 사칙연산(아래 4개)
 	| <E> / <E>
 	| <E> + <E>
 	| <E> - <E>
-	| <E> && <E>
+	| <E> && <E> # 논리 연산(0, 1 반환, 아래 3개)
 	| <E> || <E>
 	| <E> ^ <E>
-	| !<E>
-	| <E> == <E>
+	| <E> == <E> # 비교 연산(0, 1 반환, 아래 6개)
 	| <E> != <E>
 	| <E> > <E>
 	| <E> < <E>
 	| <E> >= <E>
 	| <E> <= <E>
-	| (<E>)
 
-integer <I> 
-string starts with consequent digits
+integer 
+<I> ::= ^[-+]?\d+$ 
+# 모든 자연수
 
 Statements
 <Ss> ::= <S>[,<S>]
