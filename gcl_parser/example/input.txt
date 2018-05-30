@@ -2,34 +2,59 @@
 abort
 skip
 
+
 # test 1 : assignment
+# 1-1. single assign
 v := 1
+
+# 1-2. two variable
 a, b := 2, 3
+
+# 1-3. four variable
 ash, ben, carl, dave := 12893892189, 4848, 85912389548932, 1
+
+# 1-4. assign with ariethmetic
 t, u, v := (3 + 5 / 7), 8 - 3, 6
 
+
 # test 2 : concatenation
+# 2-1. concatenate two statements
 x := 1; y := 2
-x := 3; y := 4; z := x + y; abort
+
+# 2-2. concatenate multiple statements(chain)
+x := 3; y := 4; z := x + y; skip
+
 
 # test 3 : if statement
+# 3-1. base case
 if fi
-if x - y -> y := x fi
-if x + y -> z := z + 3 | y + z -> x := x + 3 | z + x -> y := y + 3 fi
+
+# 3-2. single predicate & consequent statement 
+x := 1; y := 2; if x - y -> y := x fi
+
+# 3-3. multiple predicates 
+x, y, z := 1, 2, 3; if x + y -> z := z + 3 | y + z -> x := x + 3 | z + x -> y := y + 3 fi
 
 
 # test 4 : do statement
+# 4-1. base case
 do od
-do x + y -> z := z + 3 | y + z -> x := x + 3 | z + x -> y := y + 3 od
+
+# 4-2. multiple predicates
+x, y, z := 1, 2, 3; do x + y -> z := z + 3 | y + z -> x := x + 3 | z + x -> y := y + 3 od
+
 
 # test 5 : real algorithms(max, euclidean)
-a, b := A, B; do b - a -> b := b - a | a - b -> a := a - b od
-a, b, x, y, u, v := A, B, 1, 0, 0, 1; do b -> q, r := a / b, a - (a / b) * b; a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v od
+# 5-1. finding max algorithm
+a, b := 7, 15; do b >= a -> m := b | a >= b -> m := a od
+
+# 5-2. extended euclidean algorithm
+a, b, x, y, u, v := 78, 48, 1, 0, 0, 1; do b -> q, r := a / b, a - (a / b) * b; a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v od
 
 # test 6 : boolean features
-z := x > y
-z := x > y || y > x
-z := ((x > y) || (x < y)) == !(x == y)
+x, y := 1, 2; z := x > y
+x, y := 1, 2; z := x > y || y > x
+x, y := 15, 43; z := ((x > y) || (x < y)) == !(x == y)
 x, y, z := 1 < 2, 1 <= 2, 1 != 2; if (x > 3) -> y := x ^ z | y == 1 -> y := z && x fi
 z := 0 ^ 1 && 1 || 0
 

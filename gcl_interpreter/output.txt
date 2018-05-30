@@ -1,35 +1,60 @@
 # test 0 : abort, skip
-
+Error
 {}
 
+
 # test 1 : assignment
+# 1-1. single assign
 {'v': 1}
-{'b': 3, 'a': 2}
+
+# 1-2. two variable
+{'a': 2, 'b': 3}
+
+# 1-3. four variable
 {'ash': 12893892189, 'carl': 85912389548932, 'ben': 4848, 'dave': 1}
+
+# 1-4. assign with ariethmetic
+{'t': 3.7142857142857144, 'u': 5, 'v': 6}
 
 
 # test 2 : concatenation
+# 2-1. concatenate two statements
 {'x': 1, 'y': 2}
+
+# 2-2. concatenate multiple statements(chain)
+{'x': 3, 'y': 4, 'z': 7}
 
 
 # test 3 : if statement
+# 3-1. base case
+Error
 
+# 3-2. single predicate & consequent statement 
+{'x': 1, 'y': 1}
 
-
+# 3-3. multiple predicates 
+{'x': 1, 'y': 5, 'z': 3}
 
 
 # test 4 : do statement
+# 4-1. base case
 {}
+
+# 4-2. multiple predicates
+Error
 
 
 # test 5 : real algorithms(max, euclidean)
+# 5-1. finding max algorithm
+Error
 
-
+# 5-2. extended euclidean algorithm
+Error
 
 # test 6 : boolean features
-{'z': False}
-
-
-
-
+{'x': 1, 'y': 2, 'z': False}
+{'x': 1, 'y': 2, 'z': True}
+{'x': 15, 'y': 43, 'z': True}
+{'x': True, 'y': True, 'z': True}
+Error
 

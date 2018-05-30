@@ -8,7 +8,7 @@ import pprint
 precedence = (
         # 우선순위 낮음
         ('nonassoc', 'IF', 'FI', 'DO', 'OD'),
-        ('left', 'SEMICOLON'),
+        ('right', 'SEMICOLON'),
         ('nonassoc', 'ARROW', 'ASSIGN'),
         ('left', 'COMMA'),
         ('left', 'OR'), # group 14
@@ -68,7 +68,7 @@ def p_content_guard(p):
 
 def p_contents_one(p):
     '''contents : content'''
-    p[0] = p[1]
+    p[0] = ('contents', p[1])
 
 def p_contents(p):
     'contents : content SPLIT contents'
@@ -79,11 +79,11 @@ def p_contents(p):
 
 def p_variables_one(p):
     '''variables : VARIABLE'''
-    p[0] = ('variables', p[1])
+    p[0] = ('variables', ('variable', p[1]))
 
 def p_variables(p):
     '''variables : VARIABLE COMMA variables'''
-    p[0] = ("variables", p[1], p[3])
+    p[0] = ("variables", ('variable', p[1]), p[3])
 
 def p_expressions_one(p):
     '''expressions : expression'''
@@ -172,5 +172,6 @@ if __name__ == "__main__":
             break
             continue
         result = parser.parse(s)
+        pprint.pprint(result)
         pprint.pprint(prettify(result))
 

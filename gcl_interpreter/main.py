@@ -6,10 +6,8 @@ def safe_eval_stmt(s):
     try:
         result = eval_stmt(s, dict())
         return result
-    except:
-        print(sys.exc_info())
-        return str()
-
+    except Exception:
+        return "Error"
 
 def main():
     data = sys.argv
@@ -52,7 +50,9 @@ def main():
                     print(line)
                     f.write(line)
                 else:
+                    print(line)
                     result = safe_eval_stmt(eval(line))
+                    print(result)
                     f.write(str(result))
 
                 f.write('\n')
