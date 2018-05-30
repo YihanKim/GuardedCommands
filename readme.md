@@ -55,7 +55,7 @@ integer <I>
 string starts with consequent digits
 
 Statements
-<Ss> ::= <S.[,<S>]
+<Ss> ::= <S>[,<S>]
 
 variables 
 <Vs> ::= <V>[,<V>]
