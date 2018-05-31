@@ -1,55 +1,69 @@
 # test 0 : abort, skip
+# 0-1. abort
 abort
+# error
+
+# 0-2. skip
 skip
+# none
 
 
 # test 1 : assignment
 # 1-1. single assign
 v := 1
+# as you see
 
 # 1-2. two variable
 a, b := 2, 3
+# as you see
 
 # 1-3. four variable
 ash, ben, carl, dave := 12893892189, 4848, 85912389548932, 1
+# as you see
 
 # 1-4. assign with ariethmetic
-t, u, v := (3 + 5 / 7), 8 - 3, 6
-
+t, u, v := (3 + 15 / 7), 8 - 3, 6
+# t = 5, u = 5, v = 6
 
 # test 2 : concatenation
 # 2-1. concatenate two statements
 x := 1; y := 2
+# as you see
 
 # 2-2. concatenate multiple statements(chain)
 x := 3; y := 4; z := x + y; skip
-
+# x = 3, y = 4, z = 7
 
 # test 3 : if statement
 # 3-1. base case
 if fi
+# error
 
 # 3-2. single predicate & consequent statement 
-x := 1; y := 2; if x - y -> y := x fi
+x := 1; y := 2; if y - x -> y := x fi
+# x = 1, y = 1
 
 # 3-3. multiple predicates 
-x, y, z := 1, 2, 3; if x + y != 0 -> z := z + 3 | y + z > 0 -> x := x + 3 | z + x > 0 -> y := y + 3 fi
-
+x, y, z := 16, 14, 17; if x >= 1 && y >= 1 -> x := x - 1; y := y - 1; z := z + 1 | y >= 1 && z >= 1 -> y := y - 1; z := z - 1; x := x + 1 | z >= 1 && x >= 1 -> z := z - 1; x := x - 1; y := y + 1 fi
+# only one of three will increases, otherwise it decreases
 
 # test 4 : do statement
 # 4-1. base case
 do od
+# none
 
 # 4-2. multiple predicates
-x, y, z := 1, 2, 3; do x + y -> z := z + 3 | y + z -> x := x + 3 | z + x -> y := y + 3 od
-
+x, y, z := 16, 14, 17; do x >= 1 && y >= 1 -> x := x - 1; y := y - 1; z := z + 1 | y >= 1 && z >= 1 -> y := y - 1; z := z - 1; x := x + 1 | z >= 1 && x >= 1 -> z := z - 1; x := x - 1; y := y + 1 od
+# run until single elem is remained
 
 # test 5 : real algorithms(max, euclidean)
 # 5-1. finding max algorithm
-a, b := 7, 15; do b >= a -> m := b | a >= b -> m := a od
+a, b := 7, 15; if b >= a -> m := b | a >= b -> m := a fi
+# m = 15, a = 7, b = 15
 
 # 5-2. extended euclidean algorithm
-a, b, x, y, u, v := 78, 48, 1, 0, 0, 1; do b -> q, r := a / b, a - (a / b) * b; a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v od
+a, b, x, y, u, v := 78, 48, 1, 0, 0, 1; do b != 0 -> q, r := a / b, a - (a / b) * b; a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v od
+# b = 0, a = 6
 
 # test 6 : boolean features
 x, y := 1, 2; z := x > y
