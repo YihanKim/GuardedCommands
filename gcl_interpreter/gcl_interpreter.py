@@ -56,9 +56,12 @@ def eval_expr(expr, lookup_table = dict()):
 
         # case 5: binary arithmetic
         if expr[0] in ['+', '-', '*', '/']:
+            op = expr[0]
+            if op == "/":
+                op = "//"
             v1 = eval_expr(expr[1], lookup_table)
             v2 = eval_expr(expr[2], lookup_table)
-            return eval("%s %s %s" % (v1, expr[0], v2))
+            return eval("%s %s %s" % (v1, op, v2))
 
         # case 6: parenthesis
         if expr[0] == 'paren':
@@ -133,7 +136,7 @@ def eval_stmt(stmt, lookup_table = dict()):
             eval_conds = list(map(lambda expr: bool(eval_expr(expr, lookup_table)), conds))
             while any(eval_conds):
                 select = select_from_list(conds)
-                lookup_table = eval_stmt(clauses[stmt], lookup_table)
+                lookup_table = eval_stmt(clauses[select], lookup_table)
             return lookup_table
         
 def main():
