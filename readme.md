@@ -1,5 +1,5 @@
 
-# Guarded Command Language parser
+# Guarded Command Language parser & interpreter
 
 2018 봄학기 CS522 형식언어 및 오토마타 이론 프로젝트
 
