@@ -1,13 +1,12 @@
 from gcl_interpreter import eval_stmt, eval_expr
 import sys
 
-
 def safe_eval_stmt(s):
     try:
         result = eval_stmt(s, dict())
         return result
-    except Exception:
-        return "Error"
+    except Exception as e:
+        return e
 
 def main():
     data = sys.argv

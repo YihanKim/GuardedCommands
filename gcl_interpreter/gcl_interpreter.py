@@ -23,7 +23,7 @@ def soft_print(*s):
         print(s)
 
 def eval_expr(expr, lookup_table = dict()):
-        #soft_print(expr, lookup_table)
+        soft_print(expr, lookup_table)
         # case 1: 숫자
         if expr[0] == "number":
             return expr[1]
@@ -38,21 +38,21 @@ def eval_expr(expr, lookup_table = dict()):
         # case 3: not
         if expr[0] == "!":
             value = eval_expr(expr[1], lookup_table)
-            return not value
+            return int(not value)
 
         # case 4: binary boolean
         if expr[0] in ['&&', '||', '^', '==', '!=', '>', '<', '>=', '<=']:
             op = expr[0]
             v1 = eval_expr(expr[1], lookup_table)
             v2 = eval_expr(expr[2], lookup_table)
-            table = {'&&': 'and', '||': 'or', '^': 'xor'}
+            table = {'&&': 'and', '||': 'or'}
             # expr[0]이 C 기호로 사용되어 python과 호환되지 않으므로 수정 필요
             if expr[0] in table.keys():
                 op = table[expr[0]]
                 v1 = bool(v1)
                 v2 = bool(v2)
             
-            return eval("%s %s %s" % (v1, op, v2))
+            return int(eval("%s %s %s" % (v1, op, v2)))
 
         # case 5: binary arithmetic
         if expr[0] in ['+', '-', '*', '/']:
@@ -90,7 +90,7 @@ def select_from_list(conds):
 
 
 def eval_stmt(stmt, lookup_table = dict()):
-        soft_print(stmt[0], lookup_table)
+        soft_print(stmt, lookup_table)
 
         # do nothing
         if stmt[0] == 'skip':
@@ -121,9 +121,9 @@ def eval_stmt(stmt, lookup_table = dict()):
             conds, clauses = refine_content(stmt[1])
             # 모든 cond를 실행하고 가능성 있는 element 선택
             eval_conds = list(map(lambda expr: bool(eval_expr(expr, lookup_table)), conds))
-            soft_print(eval_conds)
+            #soft_print(eval_conds)
             if not any(eval_conds):
-                soft_print(lookup_table)
+                #soft_print(lookup_table)
                 raise Exception('if 문의 문장이 실행되지 않았습니다.')
 
             select = select_from_list(conds)
@@ -137,6 +137,7 @@ def eval_stmt(stmt, lookup_table = dict()):
             while any(eval_conds):
                 select = select_from_list(conds)
                 lookup_table = eval_stmt(clauses[select], lookup_table)
+                eval_conds = list(map(lambda expr: bool(eval_expr(expr, lookup_table)), conds))
             return lookup_table
         
 def main():
