@@ -1,74 +1,94 @@
 # test 0 : abort, skip
 # 0-1. abort
+# abort
 ['abort']
 # error
 
 # 0-2. skip
+# skip
 ['skip']
 # none
 
 
 # test 1 : assignment
 # 1-1. single assign
+# v := 1
 ['assign', ['variables', ['variable', 'v']], ['expressions', ['number', 1]]]
 # as you see
 
 # 1-2. two variable
+# a, b := 2, 3
 ['assign', ['variables', ['variable', 'a'], ['variable', 'b']], ['expressions', ['number', 2], ['number', 3]]]
 # as you see
 
 # 1-3. four variable
+# ash, ben, carl, dave := 12893892189, 4848, 85912389548932, 1
 ['assign', ['variables', ['variable', 'ash'], ['variable', 'ben'], ['variable', 'carl'], ['variable', 'dave']], ['expressions', ['number', 12893892189], ['number', 4848], ['number', 85912389548932], ['number', 1]]]
 # as you see
 
 # 1-4. assign with ariethmetic
+# t, u, v := (3 + 15 / 7), 8 - 3, 6
 ['assign', ['variables', ['variable', 't'], ['variable', 'u'], ['variable', 'v']], ['expressions', ['paren', ['+', ['number', 3], ['/', ['number', 15], ['number', 7]]]], ['-', ['number', 8], ['number', 3]], ['number', 6]]]
 # t = 5, u = 5, v = 6
 
 # test 2 : concatenation
 # 2-1. concatenate two statements
+# x := 1; y := 2
 ['concat', ['assign', ['variables', ['variable', 'x']], ['expressions', ['number', 1]]], ['assign', ['variables', ['variable', 'y']], ['expressions', ['number', 2]]]]
 # as you see
 
 # 2-2. concatenate multiple statements(chain)
+# x := 3; y := 4; z := x + y; skip
 ['concat', ['assign', ['variables', ['variable', 'x']], ['expressions', ['number', 3]]], ['assign', ['variables', ['variable', 'y']], ['expressions', ['number', 4]]], ['assign', ['variables', ['variable', 'z']], ['expressions', ['+', ['variable', 'x'], ['variable', 'y']]]], ['skip']]
 # x = 3, y = 4, z = 7
 
 # test 3 : if statement
 # 3-1. base case
+# if fi
 ['abort']
 # error
 
 # 3-2. single predicate & consequent statement 
+# x := 1; y := 2; if y - x -> y := x fi
 ['concat', ['assign', ['variables', ['variable', 'x']], ['expressions', ['number', 1]]], ['assign', ['variables', ['variable', 'y']], ['expressions', ['number', 2]]], ['if', ['contents', ['guard', ['-', ['variable', 'y'], ['variable', 'x']], ['assign', ['variables', ['variable', 'y']], ['expressions', ['variable', 'x']]]]]]]
 # x = 1, y = 1
 
 # 3-3. multiple predicates 
+# x, y, z := 16, 14, 17; if x >= 1 && y >= 1 -> x := x - 1; y := y - 1; z := z + 1 | y >= 1 && z >= 1 -> y := y - 1; z := z - 1; x := x + 1 | z >= 1 && x >= 1 -> z := z - 1; x := x - 1; y := y + 1 fi
 ['concat', ['assign', ['variables', ['variable', 'x'], ['variable', 'y'], ['variable', 'z']], ['expressions', ['number', 16], ['number', 14], ['number', 17]]], ['if', ['contents', ['guard', ['&&', ['>=', ['variable', 'x'], ['number', 1]], ['>=', ['variable', 'y'], ['number', 1]]], ['concat', ['assign', ['variables', ['variable', 'x']], ['expressions', ['-', ['variable', 'x'], ['number', 1]]]], ['assign', ['variables', ['variable', 'y']], ['expressions', ['-', ['variable', 'y'], ['number', 1]]]], ['assign', ['variables', ['variable', 'z']], ['expressions', ['+', ['variable', 'z'], ['number', 1]]]]]], ['guard', ['&&', ['>=', ['variable', 'y'], ['number', 1]], ['>=', ['variable', 'z'], ['number', 1]]], ['concat', ['assign', ['variables', ['variable', 'y']], ['expressions', ['-', ['variable', 'y'], ['number', 1]]]], ['assign', ['variables', ['variable', 'z']], ['expressions', ['-', ['variable', 'z'], ['number', 1]]]], ['assign', ['variables', ['variable', 'x']], ['expressions', ['+', ['variable', 'x'], ['number', 1]]]]]], ['guard', ['&&', ['>=', ['variable', 'z'], ['number', 1]], ['>=', ['variable', 'x'], ['number', 1]]], ['concat', ['assign', ['variables', ['variable', 'z']], ['expressions', ['-', ['variable', 'z'], ['number', 1]]]], ['assign', ['variables', ['variable', 'x']], ['expressions', ['-', ['variable', 'x'], ['number', 1]]]], ['assign', ['variables', ['variable', 'y']], ['expressions', ['+', ['variable', 'y'], ['number', 1]]]]]]]]]
 # only one of three will increases, otherwise it decreases
 
 # test 4 : do statement
 # 4-1. base case
+# do od
 ['skip']
 # none
 
 # 4-2. multiple predicates
+# x, y, z := 16, 14, 17; do x >= 1 && y >= 1 -> x := x - 1; y := y - 1; z := z + 1 | y >= 1 && z >= 1 -> y := y - 1; z := z - 1; x := x + 1 | z >= 1 && x >= 1 -> z := z - 1; x := x - 1; y := y + 1 od
 ['concat', ['assign', ['variables', ['variable', 'x'], ['variable', 'y'], ['variable', 'z']], ['expressions', ['number', 16], ['number', 14], ['number', 17]]], ['do', ['contents', ['guard', ['&&', ['>=', ['variable', 'x'], ['number', 1]], ['>=', ['variable', 'y'], ['number', 1]]], ['concat', ['assign', ['variables', ['variable', 'x']], ['expressions', ['-', ['variable', 'x'], ['number', 1]]]], ['assign', ['variables', ['variable', 'y']], ['expressions', ['-', ['variable', 'y'], ['number', 1]]]], ['assign', ['variables', ['variable', 'z']], ['expressions', ['+', ['variable', 'z'], ['number', 1]]]]]], ['guard', ['&&', ['>=', ['variable', 'y'], ['number', 1]], ['>=', ['variable', 'z'], ['number', 1]]], ['concat', ['assign', ['variables', ['variable', 'y']], ['expressions', ['-', ['variable', 'y'], ['number', 1]]]], ['assign', ['variables', ['variable', 'z']], ['expressions', ['-', ['variable', 'z'], ['number', 1]]]], ['assign', ['variables', ['variable', 'x']], ['expressions', ['+', ['variable', 'x'], ['number', 1]]]]]], ['guard', ['&&', ['>=', ['variable', 'z'], ['number', 1]], ['>=', ['variable', 'x'], ['number', 1]]], ['concat', ['assign', ['variables', ['variable', 'z']], ['expressions', ['-', ['variable', 'z'], ['number', 1]]]], ['assign', ['variables', ['variable', 'x']], ['expressions', ['-', ['variable', 'x'], ['number', 1]]]], ['assign', ['variables', ['variable', 'y']], ['expressions', ['+', ['variable', 'y'], ['number', 1]]]]]]]]]
 # run until single elem is remained
 
 # test 5 : real algorithms(max, euclidean)
 # 5-1. finding max algorithm
+# a, b := 7, 15; if b >= a -> m := b | a >= b -> m := a fi
 ['concat', ['assign', ['variables', ['variable', 'a'], ['variable', 'b']], ['expressions', ['number', 7], ['number', 15]]], ['if', ['contents', ['guard', ['>=', ['variable', 'b'], ['variable', 'a']], ['assign', ['variables', ['variable', 'm']], ['expressions', ['variable', 'b']]]], ['guard', ['>=', ['variable', 'a'], ['variable', 'b']], ['assign', ['variables', ['variable', 'm']], ['expressions', ['variable', 'a']]]]]]]
 # m = 15, a = 7, b = 15
 
 # 5-2. extended euclidean algorithm
+# a, b, x, y, u, v := 78, 48, 1, 0, 0, 1; do b != 0 -> q, r := a / b, a - (a / b) * b; a, b, x, y, u, v := b, r, u, v, x - q*u, y - q*v od
 ['concat', ['assign', ['variables', ['variable', 'a'], ['variable', 'b'], ['variable', 'x'], ['variable', 'y'], ['variable', 'u'], ['variable', 'v']], ['expressions', ['number', 78], ['number', 48], ['number', 1], ['number', 0], ['number', 0], ['number', 1]]], ['do', ['contents', ['guard', ['!=', ['variable', 'b'], ['number', 0]], ['concat', ['assign', ['variables', ['variable', 'q'], ['variable', 'r']], ['expressions', ['/', ['variable', 'a'], ['variable', 'b']], ['-', ['variable', 'a'], ['*', ['paren', ['/', ['variable', 'a'], ['variable', 'b']]], ['variable', 'b']]]]], ['assign', ['variables', ['variable', 'a'], ['variable', 'b'], ['variable', 'x'], ['variable', 'y'], ['variable', 'u'], ['variable', 'v']], ['expressions', ['variable', 'b'], ['variable', 'r'], ['variable', 'u'], ['variable', 'v'], ['-', ['variable', 'x'], ['*', ['variable', 'q'], ['variable', 'u']]], ['-', ['variable', 'y'], ['*', ['variable', 'q'], ['variable', 'v']]]]]]]]]]
 # b = 0, a = 6
 
 # test 6 : boolean features
+# x, y := 1, 2; z := x > y
 ['concat', ['assign', ['variables', ['variable', 'x'], ['variable', 'y']], ['expressions', ['number', 1], ['number', 2]]], ['assign', ['variables', ['variable', 'z']], ['expressions', ['>', ['variable', 'x'], ['variable', 'y']]]]]
+# x, y := 1, 2; z := x > y || y > x
 ['concat', ['assign', ['variables', ['variable', 'x'], ['variable', 'y']], ['expressions', ['number', 1], ['number', 2]]], ['assign', ['variables', ['variable', 'z']], ['expressions', ['||', ['>', ['variable', 'x'], ['variable', 'y']], ['>', ['variable', 'y'], ['variable', 'x']]]]]]
+# x, y := 15, 43; z := ((x > y) || (x < y)) == !(x == y)
 ['concat', ['assign', ['variables', ['variable', 'x'], ['variable', 'y']], ['expressions', ['number', 15], ['number', 43]]], ['assign', ['variables', ['variable', 'z']], ['expressions', ['==', ['paren', ['||', ['paren', ['>', ['variable', 'x'], ['variable', 'y']]], ['paren', ['<', ['variable', 'x'], ['variable', 'y']]]]], ['!', ['paren', ['==', ['variable', 'x'], ['variable', 'y']]]]]]]]
+# x, y, z := 1 < 2, 1 <= 2, 1 != 2; if (x > 3) -> y := x ^ z | y == 1 -> y := z && x fi
 ['concat', ['assign', ['variables', ['variable', 'x'], ['variable', 'y'], ['variable', 'z']], ['expressions', ['<', ['number', 1], ['number', 2]], ['<=', ['number', 1], ['number', 2]], ['!=', ['number', 1], ['number', 2]]]], ['if', ['contents', ['guard', ['paren', ['>', ['variable', 'x'], ['number', 3]]], ['assign', ['variables', ['variable', 'y']], ['expressions', ['^', ['variable', 'x'], ['variable', 'z']]]]], ['guard', ['==', ['variable', 'y'], ['number', 1]], ['assign', ['variables', ['variable', 'y']], ['expressions', ['&&', ['variable', 'z'], ['variable', 'x']]]]]]]]
+# z := 0 ^ 1 && 1 || 0
 ['assign', ['variables', ['variable', 'z']], ['expressions', ['||', ['^', ['number', 0], ['&&', ['number', 1], ['number', 1]]], ['number', 0]]]]
 

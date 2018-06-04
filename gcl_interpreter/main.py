@@ -49,7 +49,7 @@ def main():
                     print(line)
                     f.write(line)
                 else:
-                    print(line)
+                    #print(line)
                     result = safe_eval_stmt(eval(line))
                     print(result)
                     f.write(str(result))

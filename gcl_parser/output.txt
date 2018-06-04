@@ -1,0 +1,2 @@
+# test 0 : abort, skip
+# 0-1. abort

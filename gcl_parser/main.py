@@ -58,6 +58,7 @@ def main():
                     f.write(line)
                 else:
                     result = safe_parse(line, print_result = True)
+                    f.write('# ' + line + '\n')
                     f.write(str(result))
 
                 f.write('\n')
