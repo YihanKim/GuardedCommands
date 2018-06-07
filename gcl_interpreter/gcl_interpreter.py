@@ -11,9 +11,6 @@
 # 연산자(+, -, ...) : ...
 
 import random
-import sys
-sys.path.append('../gcl_parser')
-from gcl_yacc import parser, prettify
 
 #debug = True
 debug = False
@@ -152,14 +149,3 @@ def eval_stmt(stmt, lookup_table = dict(), level = 0):
         except:
             raise Exception("주어진 %s 토큰을 읽을 수 없습니다" % stmt[0])
 
-def main():
-    while True:
-        i = input('GCL > ')
-        raw_ast = parser.parse(i)
-        ast = prettify(raw_ast)
-        print(ast)
-        tbl = eval_stmt(ast)
-        print(tbl)
-
-if __name__ == "__main__":
-    main()

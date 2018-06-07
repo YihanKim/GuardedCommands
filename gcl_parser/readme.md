@@ -1,7 +1,7 @@
 
 # Guarded Command Language parser & interpreter
 
-2018 봄학기 CS522 형식언어 및 오토마타 이론 프로젝트
+2018 봄학기 CS522 형식언어 및 오토마타 이론 프로젝트 1
 
 20183111 김이한
 
@@ -13,9 +13,9 @@
 * statement는 guarded command의 기본 문법 단위
 
 ## 실행 방법(Ubuntu 16.04)
-```
-git clone https://github.com/yihankim/cs522 ~/GC
-cd ~/GC
+```bash
+git clone https://github.com/yihankim/cs522 ~/GCL
+cd ~/GCL
 sudo apt-get install -y python3-pip
 pip3 install virtualenv
 virtualenv venv

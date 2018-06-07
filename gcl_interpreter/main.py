@@ -1,5 +1,7 @@
 from gcl_interpreter import eval_stmt, eval_expr
 import sys
+sys.path.append('../gcl_parser')
+from gcl_yacc import parser, prettify
 
 def safe_eval_stmt(s):
     try:
@@ -12,12 +14,18 @@ def main():
     data = sys.argv
 
     if len(data) < 2:
+        mode = input("사용할 모드를 입력하세요(GCL / AST) : ")
+		
+        while mode not in ['GCL', 'AST']:
+            if not mode or mode == 'exit':
+                print('bye')
+                return
+            mode = input("사용할 모드를 입력하세요(GCL / AST) : ")
 
         while True:
             try:
-                s = input("AST > ")
+                s = input("%s > " % mode)
             except KeyboardInterrupt:
-                print()
                 print("bye")
                 break
 
@@ -25,7 +33,21 @@ def main():
                 print("bye")
                 break
 
-            result = safe_eval_stmt(eval(s))
+            if mode == "GCL":
+                try:
+                    s = prettify(parser.parse(s))
+                except:
+                    print("파싱 과정 중 오류가 발생했습니다.")
+            if mode == "AST":
+                try:
+                    s = eval(s)
+                except:
+                    print("AST를 읽을 수 없습니다.")
+            try:
+                result = safe_eval_stmt(s)
+                print(result)
+            except Exception as e:
+                print("실행 중 오류 : %s" % e)
 
     elif len(data) <= 3:
         try:
