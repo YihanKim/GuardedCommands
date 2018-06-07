@@ -113,9 +113,10 @@ def eval_stmt(stmt, lookup_table = dict(), level = 0):
             # 구현 상의 편이를 위해 실행 단에서 확인함
             if len(variables) != len(values):
                 raise Exception('할당 시 변수와 값의 수가 일치하지 않습니다.')
+            new_lookup_table = lookup_table.copy()
             for var, val in zip(variables, values):
-                lookup_table[var] = eval_expr(val, lookup_table, level)
-            result = lookup_table
+                new_lookup_table[var] = eval_expr(val, lookup_table, level)
+            result = new_lookup_table
 
         if stmt[0] == 'concat':
             for child_stmt in stmt[1:]:
