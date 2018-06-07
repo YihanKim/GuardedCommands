@@ -5,6 +5,7 @@
 * 20183111 김이한
 
 ## 개요
+![GCL-demo](https://github.com/YihanKim/CS522/blob/master/GCL-demo.gif)
 * 2018 봄학기 형식언어 및 오토마타 이론 프로젝트 1 ~ 2
 * Guarded Command Language(이하 GCL)의 파싱 및 실행 기능 구현
 
